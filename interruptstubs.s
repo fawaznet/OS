@@ -2,15 +2,15 @@
 
 .section .text
 
-.extern _ZN16InterruptManager15handleInterruptEhj
+.extern _ZN16InterruptManager15HandleInterruptEhj
 
 .global _ZN16InterruptManager22IgnoreInterruptRequestEv
 
 # exception
 .macro HandleException num
-.global _ZN16InterruptManager16HandleException\num\()Ev #puplish outside
-_ZN16InterruptManager16HandleException\num\()Ev:
-	movb $/num, (interruptNumber)
+.global _ZN16InterruptManager19HandleException\num\()Ev #puplish outside
+_ZN16InterruptManager19HandleException\num\()Ev:
+	movb $\num, (interruptNumber)
 	jmp int_bottom
 .endm	#end macro
 
@@ -24,6 +24,8 @@ _ZN16InterruptManager26HandleInterruptRequest\num\()Ev:
 	jmp int_bottom
 .endm	#end macro
 
+HandleException 0x00
+HandleException 0x01
 
 HandleInterruptRequest 0x00
 HandleInterruptRequest 0x01
@@ -41,7 +43,7 @@ int_bottom:
 
 	pushl %esp
 	push (interruptNumber)
-	call _ZN16InterruptManager15handleInterruptEhj
+	call _ZN16InterruptManager15HandleInterruptEhj
 	# addl $5, %esp
 	movl %eax, %esp
 

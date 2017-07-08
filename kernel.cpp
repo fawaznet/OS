@@ -2,6 +2,8 @@
 #include "types.h"
 #include "gdt.h"
 #include "interrupts.h"
+#include "keyboard.h"
+
 
 void printf(char* str){
 	static uint16_t* VideoMemory = (uint16_t*) 0xb8000;
@@ -51,12 +53,15 @@ extern "C" void callConstructors(){
 
 extern "C" void kernelMain(void* multiboot_structure, uint32_t magicNumber){
 	printf("Hello World, I'm Fawaz,\n");
-	printf("this is my Operating System (FawazOS).");
+	//printf("this is my Operating System (FawazOS).");
 
 	GlobalDescriptorTable gdt;
-	InterruptManager interrupts(&gdt); //&gdt maybe means jump to gdt
+	InterruptManager interrupts(0x20, &gdt); //&gdt pointer to gdt
+
+	KeyboardDriver keyboard(&interrupts); //&interrupt pointer to interrupt manager
 
 	interrupts.Activate();
+	printf("it's good\n");
 
 	while(1);
 }
