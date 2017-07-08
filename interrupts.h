@@ -2,7 +2,7 @@
 #define __INTERRUPTS_H
 
 #include "types.h"
-#include "ports.h"
+#include "port.h"
 #include "gdt.h"
 
 	class InterruptManager{
@@ -10,26 +10,43 @@
 		struct GateDescriptor
 		{
 			uint16_t handlerAddressLowBits;
-			uint8_t gdt_codeSegmentSelector;
+			uint16_t gdt_codeSegmentSelector;
 			uint8_t reserved;
 			uint8_t access;
-			uint16_t handlerAddressHighBits
-		}; __attribute__((packed))
+			uint16_t handlerAddressHighBits;
+		} __attribute__((packed));
 
 		// array with 256 Entries
-		static GateDescriptor interrupDescriptorTable[256];
+		static GateDescriptor InterruptDescriptorTable[256];
 
-		static SetinterrupDescriptorTableEntry(
+		// this is will create the table
+		struct InterruptDescriptorTablePointer
+		{
+			uint16_t size;
+			uint32_t base;	// the address of the tabel
+		}__attribute__((packed));
+
+		
+		
+
+		static void SetInterruptDescriptorTableEntry(
 			uint8_t interruptNumber,
 			uint16_t codeSegmentSelectorOffset,
 			void (*handler)(),
-			uint8_t DescriptorPrivilegeLevel, /*access*/
-			uint8_t DescriptorType /*flags*/
+			uint8_t DescriptorPrivilegeLevel, 
+			uint8_t DescriptorType 
 			);
 
+		Port8BitSlow picMasterCommand;
+		Port8BitSlow picMasterData;
+		Port8BitSlow picSlaveCommand;
+		Port8BitSlow picSlaveData;
+
 	public:
-		InterruptManager(GlobalDescriptionTable* gdt);
+		InterruptManager(GlobalDescriptorTable* gdt);
 		~InterruptManager();
+
+		void Activate();
 
 		static uint32_t handleInterrupt(uint8_t interruptNumber, uint32_t esp);	//esp is stack pointer
 

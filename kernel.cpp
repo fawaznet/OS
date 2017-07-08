@@ -1,6 +1,7 @@
 
 #include "types.h"
 #include "gdt.h"
+#include "interrupts.h"
 
 void printf(char* str){
 	static uint16_t* VideoMemory = (uint16_t*) 0xb8000;
@@ -53,6 +54,9 @@ extern "C" void kernelMain(void* multiboot_structure, uint32_t magicNumber){
 	printf("this is my Operating System (FawazOS).");
 
 	GlobalDescriptorTable gdt;
+	InterruptManager interrupts(&gdt); //&gdt maybe means jump to gdt
+
+	interrupts.Activate();
 
 	while(1);
 }
