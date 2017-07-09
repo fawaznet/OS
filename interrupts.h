@@ -1,9 +1,10 @@
 #ifndef __INTERRUPTS_H
 #define __INTERRUPTS_H
 
+#include "gdt.h"
 #include "types.h"
 #include "port.h"
-#include "gdt.h"
+
 	
 	class InterruptManager;
 
@@ -11,7 +12,7 @@
 	{
 	protected:
 		uint8_t interruptNumber;
-		InterruptManager* interruptManager; //pointer for the InterruptManager to connect to.
+		static InterruptManager* interruptManager; //pointer for the InterruptManager to connect to.
 
 		InterruptHandler(uint8_t interruptNumber, InterruptManager* interruptManager);
 		~InterruptHandler();
@@ -61,6 +62,8 @@
 			uint8_t DescriptorType 
 			);
 
+		static uint32_t HandleInterrupt(uint8_t interruptNumber, uint32_t esp);	//esp is stack pointer
+
 		Port8BitSlow picMasterCommand;
 		Port8BitSlow picMasterData;
 		Port8BitSlow picSlaveCommand;
@@ -73,13 +76,16 @@
 		void Activate();
 		void Deactivate();
 
-		static uint32_t HandleInterrupt(uint8_t interruptNumber, uint32_t esp);	//esp is stack pointer
 		uint32_t DoHandleInterrupt(uint8_t interruptNumber, uint32_t esp);	//esp is stack pointer
 
 
-		static void IgnoreInterruptRequest();
+		
 		static void HandleInterruptRequest0x00(); // Timer Interrupt
 		static void HandleInterruptRequest0x01(); // Keyboard Interrupt
+		static void IgnoreInterruptRequest();
+
+		static void HandleException0x00();
+		static void HandleException0x01();
 
 	};
 

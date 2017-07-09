@@ -34,7 +34,7 @@ mykernel.iso: mykernel.bin
 	rm -rf iso
 
 run: mykernel.iso
-	(killall VirtualBox && sleep 1) || true
+	(killall VirtualBox && sleep 2) || true
 	VirtualBox --startvm "NewOS" &
 	echo 'Successful...Done'
 
