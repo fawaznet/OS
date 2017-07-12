@@ -60,6 +60,7 @@ extern "C" void kernelMain(void* multiboot_structure, uint32_t magicNumber){
 
 	KeyboardDriver keyboard(&interrupts); //&interrupt pointer to interrupt manager
 
+
 	interrupts.Activate();
 	printf("it's good\n");
 

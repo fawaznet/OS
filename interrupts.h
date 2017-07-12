@@ -1,18 +1,19 @@
 #ifndef __INTERRUPTS_H
 #define __INTERRUPTS_H
 
-#include "gdt.h"
 #include "types.h"
+#include "gdt.h"
 #include "port.h"
 
 	
 	class InterruptManager;
 
+
 	class InterruptHandler
 	{
 	protected:
 		uint8_t interruptNumber;
-		static InterruptManager* interruptManager; //pointer for the InterruptManager to connect to.
+		InterruptManager* interruptManager; //pointer for the InterruptManager to connect to.
 
 		InterruptHandler(uint8_t interruptNumber, InterruptManager* interruptManager);
 		~InterruptHandler();
