@@ -72,9 +72,11 @@ InterruptManager::InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescr
 
 	SetInterruptDescriptorTableEntry(0x00, CodeSegment, &HandleInterruptRequest0x00, 0, IDT_INTERRUPT_GATE);	// 0x20 + 0x00 = 0x20
 	SetInterruptDescriptorTableEntry(0x01, CodeSegment, &HandleInterruptRequest0x01, 0, IDT_INTERRUPT_GATE);	// 0x21 + 0x01 = 0x21 will jump to HandleInterruptRequest0x01 in interrupts.s
+	SetInterruptDescriptorTableEntry(0x0C, CodeSegment, &HandleInterruptRequest0x0C, 0, IDT_INTERRUPT_GATE);	// 0x21 + 0x01 = 0x21 will jump to HandleInterruptRequest0x01 in interrupts.s
 
 	SetInterruptDescriptorTableEntry(hardwareInterruptOffset + 0x00, CodeSegment, &HandleInterruptRequest0x00, 0, IDT_INTERRUPT_GATE);	// 0x21 + 0x01 = 0x21 will jump to HandleInterruptRequest0x01 in interrupts.s
-	SetInterruptDescriptorTableEntry(hardwareInterruptOffset + 0x01, CodeSegment, &HandleInterruptRequest0x00, 0, IDT_INTERRUPT_GATE);	// 0x21 + 0x01 = 0x21 will jump to HandleInterruptRequest0x01 in interrupts.s
+	SetInterruptDescriptorTableEntry(hardwareInterruptOffset + 0x01, CodeSegment, &HandleInterruptRequest0x01, 0, IDT_INTERRUPT_GATE);	// 0x21 + 0x01 = 0x21 will jump to HandleInterruptRequest0x01 in interrupts.s
+	SetInterruptDescriptorTableEntry(hardwareInterruptOffset + 0x0C, CodeSegment, &HandleInterruptRequest0x0C, 0, IDT_INTERRUPT_GATE);	// 0x21 + 0x01 = 0x21 will jump to HandleInterruptRequest0x01 in interrupts.s
 
 
 	// Before CPU uses the table we will comunicate with this PICs
@@ -91,6 +93,9 @@ InterruptManager::InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescr
 
 	picMasterData.Write(0x00);
 	picSlaveData.Write(0x00);
+
+	picMasterData.Write(0x0C);
+	picSlaveData.Write(0x0C);
 
 	picMasterData.Write(0x20);// Master will ADD 20 to any Interrupt (0x20 + 0x01) >> 20 t 27
 	picSlaveData.Write(0x28);// Slave will ADD 28 to any Interrupt (0x28 + 0x01) >> 28 to 30

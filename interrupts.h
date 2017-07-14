@@ -83,6 +83,8 @@
 		
 		static void HandleInterruptRequest0x00(); // Timer Interrupt
 		static void HandleInterruptRequest0x01(); // Keyboard Interrupt
+		static void HandleInterruptRequest0x0C(); // Mouse Interrupt
+
 		static void InterruptIgnore();
 
 		static void HandleException0x00();

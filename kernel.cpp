@@ -3,6 +3,7 @@
 #include "gdt.h"
 #include "interrupts.h"
 #include "keyboard.h"
+#include "mouse.h"
 
 
 void printf(char* str){
@@ -59,6 +60,7 @@ extern "C" void kernelMain(void* multiboot_structure, uint32_t magicNumber){
 	InterruptManager interrupts(0x20, &gdt); //&gdt pointer to gdt
 
 	KeyboardDriver keyboard(&interrupts); //&interrupt pointer to interrupt manager
+	MouseDriver mouse(&interrupts); //&interrupt pointer to interrupt manager
 
 
 	interrupts.Activate();
