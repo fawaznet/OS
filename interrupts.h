@@ -83,12 +83,45 @@
 		
 		static void HandleInterruptRequest0x00(); // Timer Interrupt
 		static void HandleInterruptRequest0x01(); // Keyboard Interrupt
+		static void HandleInterruptRequest0x02(); // Mouse Interrupt
+		static void HandleInterruptRequest0x03(); // Timer Interrupt
+		static void HandleInterruptRequest0x04(); // Keyboard Interrupt
+		static void HandleInterruptRequest0x05(); // Mouse Interrupt
+		static void HandleInterruptRequest0x06(); // Timer Interrupt
+		static void HandleInterruptRequest0x07(); // Keyboard Interrupt
+		static void HandleInterruptRequest0x08(); // Mouse Interrupt
+		static void HandleInterruptRequest0x09(); // Timer Interrupt
+		static void HandleInterruptRequest0x0A(); // Keyboard Interrupt
+		static void HandleInterruptRequest0x0B(); // Mouse Interrupt
 		static void HandleInterruptRequest0x0C(); // Mouse Interrupt
+		static void HandleInterruptRequest0x0D(); // Keyboard Interrupt
+		static void HandleInterruptRequest0x0E(); // Mouse Interrupt
+		static void HandleInterruptRequest0x0F(); // Timer Interrupt
+		static void HandleInterruptRequest0x31(); // Keyboard Interrupt
+		
 
 		static void InterruptIgnore();
 
 		static void HandleException0x00();
 		static void HandleException0x01();
+		static void HandleException0x02();
+		static void HandleException0x03();
+		static void HandleException0x04();
+		static void HandleException0x05();
+		static void HandleException0x06();
+		static void HandleException0x07();
+		static void HandleException0x08();
+		static void HandleException0x09();
+		static void HandleException0x0A();
+		static void HandleException0x0B();
+		static void HandleException0x0C();
+		static void HandleException0x0D();
+		static void HandleException0x0E();
+		static void HandleException0x0F();
+		static void HandleException0x10();
+		static void HandleException0x11();
+		static void HandleException0x12();
+		static void HandleException0x13();
 
 	};
 
