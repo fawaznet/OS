@@ -83,7 +83,7 @@
 		
 		static void HandleInterruptRequest0x00(); // Timer Interrupt
 		static void HandleInterruptRequest0x01(); // Keyboard Interrupt
-		static void IgnoreInterruptRequest();
+		static void InterruptIgnore();
 
 		static void HandleException0x00();
 		static void HandleException0x01();

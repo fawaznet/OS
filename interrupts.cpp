@@ -63,11 +63,11 @@ InterruptManager::InterruptManager(uint16_t hardwareInterruptOffset, GlobalDescr
 
 	for (uint8_t i = 255; i > 0; --i)
 	{
-		SetInterruptDescriptorTableEntry(i, CodeSegment, &IgnoreInterruptRequest, 0, IDT_INTERRUPT_GATE);	// 0 for privilledge
+		SetInterruptDescriptorTableEntry(i, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);	// 0 for privilledge
 		handlers[i] = 0;
 
 	}
-	SetInterruptDescriptorTableEntry(0, CodeSegment, &IgnoreInterruptRequest, 0, IDT_INTERRUPT_GATE);	// 0 for privilledge
+	SetInterruptDescriptorTableEntry(0, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);	// 0 for privilledge
 	handlers[0] = 0;
 
 	SetInterruptDescriptorTableEntry(0x00, CodeSegment, &HandleInterruptRequest0x00, 0, IDT_INTERRUPT_GATE);	// 0x20 + 0x00 = 0x20
