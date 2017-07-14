@@ -52,7 +52,7 @@ extern "C" void callConstructors(){
 
 
 extern "C" void kernelMain(void* multiboot_structure, uint32_t magicNumber){
-	printf("Hello World, I'm Fawaz,\n");
+	printf("Hello World, I'm Fawaz,this my OS, what is your name?\n");
 	//printf("this is my Operating System (FawazOS).");
 
 	GlobalDescriptorTable gdt;
@@ -62,7 +62,6 @@ extern "C" void kernelMain(void* multiboot_structure, uint32_t magicNumber){
 
 
 	interrupts.Activate();
-	printf("it's good\n");
 
 	while(1);
 }

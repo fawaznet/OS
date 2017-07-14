@@ -25,13 +25,27 @@ void printf(char* str);
 uint32_t KeyboardDriver::HandleInterrupt(uint32_t esp){
 
 	uint8_t key = dataport.Read();
+	if(key < 0x80){
+		switch(key){
+			case 0xFA: break;
+			case 0x2A: break; // SHIFT
+			case 0x0E: break; // BACKSPACE
+			case 0x39: printf(" "); break; // space
+			case 0x1C: printf("\n"); break;
+			case 0x21: printf("f"); break;
+			case 0x1E: printf("a"); break;
+			case 0x11: printf("w"); break;
+			case 0x2C: printf("z"); break;
+			case 0x45: case 0xC5: break;
+			default:
+				char* foo = "KEYBOARD 0x00";
+				char* hex = "0123456789ABCDEF";
 
-	char* foo = "KEYBOARD 0x00";
-	char* hex = "0123456789ABCDEF";
-
-	foo[11] = hex[(key >> 4) & 0xF];
-	foo[12] = hex[key & 0xF];
-	printf(foo);
-
+				foo[11] = hex[(key >> 4) & 0xF];
+				foo[12] = hex[key & 0xF];
+				printf(foo);
+				break;
+		}
+	}
 	return esp;
 }
